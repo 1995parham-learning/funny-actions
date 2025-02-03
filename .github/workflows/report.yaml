@@ -5,7 +5,7 @@ on: push
 defaults:
   run:
     shell: bash
-    working-directory: ./report
+    working-directory: report
 
 jobs:
   report:
