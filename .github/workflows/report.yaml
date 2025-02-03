@@ -2,15 +2,14 @@ name: Report
 
 on: push
 
-defaults:
-  run:
-    shell: bash
-    working-directory: ./report
-
 jobs:
   report:
     name: Report
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./report
     steps:
       # Install accuracy test dependencies
       - name: Install dependencies
