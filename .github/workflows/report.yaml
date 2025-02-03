@@ -1,0 +1,27 @@
+name: Report
+
+on: push
+
+defaults:
+  run:
+    shell: bash
+    working-directory: ./report
+
+jobs:
+  report:
+    name: Report
+    runs-on: ubuntu-latest
+    steps:
+      # Install accuracy test dependencies
+      - name: Install dependencies
+        run: |
+            pip install uv
+            uv sync --dev -v
+            uv run ruff check
+            uv run ruff format --check
+
+      # Run accuracy tests
+      - name: Reporting
+        run: |
+          echo "# Reporting 🗒️" >> "$GITHUB_STEP_SUMMARY"
+          uv run python main.py >> "$GITHUB_STEP_SUMMARY"
