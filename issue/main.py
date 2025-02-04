@@ -1,5 +1,6 @@
 import argparse
 
+
 def main():
     parser = argparse.ArgumentParser("issue")
     parser.add_argument("title", help="GitHub Issue Title", type=str)
