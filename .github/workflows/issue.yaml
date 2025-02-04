@@ -2,10 +2,11 @@ name: Issue
 
 on:
   issues:
-    types: [opened]
+    types: [labeled]
 
 jobs:
   issue:
+    if: github.event.label.name == 'help wanted'
     name: Issue
     runs-on: ubuntu-latest
     defaults:
