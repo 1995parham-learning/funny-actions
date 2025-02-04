@@ -1,0 +1,36 @@
+name: Issue
+
+on: issues
+
+jobs:
+  issue:
+    name: Issue
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./issue
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: 'issue/.python-version'
+
+      - name: Install dependencies
+        run: |
+            pip install uv
+            uv sync --dev -v
+            uv run ruff check
+            uv run ruff format --check
+
+      - name: Commenting
+        env:
+          GH_TITLE: "${{ github.event.issue.title }}"
+          GH_BODY: "${{ github.event.issue.body }}"
+          GH_NUMBER: "${{ github.event.issue.number }}"
+          GH_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GH_REPO: "${{ github.repository }}"
+        run: |
+          gh issue comment "$GH_NUMBER" --body "$(uv run python main.py "$GH_TITLE" "$GH_BODY")"
