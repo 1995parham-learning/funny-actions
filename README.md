@@ -1,7 +1,7 @@
 # Actions for Fun
 
 <p align="center">
-    <img src=".github/asses/logo.jpg" />
+    <img src=".github/assests/logo.jpg" height=500px />
 </p>
 
 ## Introduction
